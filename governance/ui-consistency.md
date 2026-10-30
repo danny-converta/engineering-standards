@@ -8,7 +8,7 @@ People learn an interface once. When Share sits under the title on one page and 
 
 This standard defines what must be consistent, where the single implementation lives, and how to check it. It is mandatory for all web frontends, and for every app in a monorepo that shares a UI package.
 
-Related standards: [Code Sharing](/standards/development/code-sharing), [Notifications & Confirmations](/standards/governance/notifications-and-confirmations), [Global Search](/standards/governance/global-search), [Accessibility Standards](/standards/governance/accessibility-standards).
+Related standards: [Code Sharing](/standards/development/code-sharing), [Notifications & Confirmations](/standards/governance/notifications-and-confirmations), [Global Search](/standards/governance/global-search), [Rich Text Editors](/standards/governance/rich-text-editors), [Accessibility Standards](/standards/governance/accessibility-standards).
 
 ## The Two Levels
 
@@ -60,6 +60,7 @@ These must behave identically everywhere they appear. Each has one implementatio
 | Destructive confirmation | Confirm dialog naming the consequence; type-to-confirm for permanent deletion only, never for reversible actions |
 | Share | One Share menu (see below) |
 | Global search | [Global Search](/standards/governance/global-search) |
+| Comments, replies, descriptions, emoji and reactions | [Rich Text Editors](/standards/governance/rich-text-editors) |
 | Empty states | Say what will appear and how to make it appear; never a blank area |
 | Loading | Skeletons shaped like the content, not spinners in the middle of the page |
 | Dates and times | One formatter per kind (date, date-time, range), in the product's locale and time zone |
