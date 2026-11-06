@@ -87,22 +87,22 @@ API_KEY_STRIPE=sk_live_xxxxxxxxxxxx
 
 ### Environment File Conventions
 
-Applications use a multi-file convention that separates local development, public build-time, and production secrets:
+Applications separate local development, public build-time values and production secrets. Local development reads `.env.local` only, and there is no plain `.env` in the repo: real production values live outside it, one file per service, and are copied to `/etc/{service}.env` on the server. Production files, `.env.local` and `.env.example` share one layout: section headings and no other comments.
 
 #### Backend
 
 | File | Purpose | Git Status |
 |------|---------|------------|
 | `.env.local` | Local development secrets and config | **Gitignored** |
-| `.env` | Production secrets (copied to server `/etc` dir) | **Gitignored** |
+| `.env.example` | Production template, placeholders only | **Committed** |
 
 #### Frontend (Next.js)
 
 | File | Purpose | Git Status |
 |------|---------|------------|
-| `.env.local` | Local development overrides | **Gitignored** |
+| `.env.local` | Local development config | **Gitignored** |
+| `.env.example` | Production template, placeholders only | **Committed** |
 | `.env.production` | Public `NEXT_PUBLIC_*` vars (loaded at build time) | **Committed** |
-| `.env` | Production secrets (copied to server `/etc` dir) | **Gitignored** |
 
 #### File Contents
 
@@ -113,8 +113,8 @@ JWT_SECRET=dev-secret-key-for-local-testing-only
 NODE_ENV=development
 LOG_LEVEL=debug
 
-# Backend .env (production secrets - NEVER COMMIT)
-# Maintained locally, copied to /etc/{app_name}.env on server
+# /etc/{service}.env for the backend (production secrets - NEVER COMMIT)
+# Maintained outside the repo, copied to the server
 DATABASE_URL=mysql://user:pass@prod-host:3306/prod_db
 JWT_SECRET=production-base64-encoded-secret
 
@@ -127,23 +127,23 @@ NEXT_PUBLIC_ANALYTICS_KEY=ak_1234567890
 NEXT_PUBLIC_API_URL=http://localhost:3002/api/v1
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
 
-# Frontend .env (production secrets - NEVER COMMIT)
-# Server-side secrets only (NextAuth, backend URL, etc.)
+# /etc/{service}.env for the frontend (production secrets - NEVER COMMIT)
+# Server-side values only (NextAuth, backend URL, etc.); NEXT_PUBLIC_* has no effect here because it is inlined at build time
 NEXTAUTH_SECRET=production-secret
 BACKEND_URL=http://localhost:3002
+
+# .env.example (production template - COMMITTED)
+# Same layout as the real file, placeholders only
+NEXTAUTH_SECRET=CHANGE_ME_RUN_OPENSSL_RAND_BASE64_32
 ```
 
 #### Gitignore Rules
 
 ```gitignore
-# Backend
-.env          # Production secrets
+# Backend and frontend
+.env          # Never used in the repo; ignored as a safety net
 .env*.local   # Local dev
-
-# Frontend
-.env          # Production secrets
-.env*.local   # Local dev
-# .env.production is NOT ignored (committed, public vars only)
+# .env.example and .env.production are NOT ignored (committed, no secrets)
 ```
 
 > **Warning: `.env.local` overrides `.env.production` during local development.** Next.js loads env files in this order: `.env` → `.env.local` → `.env.{NODE_ENV}` → `.env.{NODE_ENV}.local`. If `.env.local` defines a `NEXT_PUBLIC_*` variable, it silently overrides the value in `.env.production`. This means a wrong value in `.env.production` will work fine locally but break in production (where only `.env.production` is used during `next build`). Always verify `.env.production` values independently — do not assume local testing validates them.
