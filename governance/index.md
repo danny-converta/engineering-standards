@@ -13,6 +13,7 @@ Security, compliance, data governance, and architecture decision standards for a
 | [Documentation Standards](/standards/governance/documentation-standards) | README templates, API docs, code comments, changelogs |
 | [Accessibility Standards](/standards/governance/accessibility-standards) | WCAG 2.1 AA compliance, testing procedures |
 | [UI Consistency](/standards/governance/ui-consistency) | Page anatomy, one action row, shared behaviours within an app and across a monorepo |
+| [UI Text: Labels, Helper Text and Tooltips](/standards/governance/ui-text-and-help) | Plain-language help written for someone new to the app: where each kind of text goes, rules and checklist |
 | [Rich Text Editors](/standards/governance/rich-text-editors) | Which editor for which field, the shared toolbar with emoji, sanitising, display and reactions |
 | [Global Search](/standards/governance/global-search) | The ⌘K palette: layout, states, keyboard, accessibility and access-safe results |
 | [Database Standards](/standards/governance/database-standards) | Schema design, indexing, migrations, query optimization |

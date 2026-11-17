@@ -55,6 +55,7 @@ Security, compliance, and architecture decisions:
 - Data governance and privacy
 - Feature flags
 - Documentation and accessibility standards
+- UI text: labels, helper text and tooltips
 - Database standards and ADR templates
 
 ### [TypeScript Standards](/standards/typescript)
